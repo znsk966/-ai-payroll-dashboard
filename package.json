@@ -1,0 +1,38 @@
+{
+  "name": "ai-payroll-dashboard",
+  "version": "1.0.0",
+  "description": "AI-powered payroll analytics dashboard with Firebase and Google Gemini AI",
+  "main": "public/clean-firebase-dashboard.html",
+  "scripts": {
+    "start": "firebase emulators:start --import=./firebase-data --export-on-exit=./firebase-data",
+    "dev": "firebase emulators:start --import=./firebase-data --export-on-exit=./firebase-data",
+    "deploy": "firebase deploy",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "deploy:functions": "firebase deploy --only functions",
+    "build": "echo 'No build step required for static site'",
+    "test": "echo 'No tests configured yet'"
+  },
+  "keywords": [
+    "firebase",
+    "ai",
+    "dashboard",
+    "analytics",
+    "payroll",
+    "javascript",
+    "chartjs",
+    "gemini-ai"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "firebase-admin": "^13.5.0"
+  },
+  "devDependencies": {
+    "firebase-tools": "^12.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/ai-payroll-dashboard.git"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/ai-payroll-dashboard#readme"
+}

@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Clean Firebase Dashboard</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Section -->
+        <div class="login-section" id="login-section">
+            <div class="header">
+                <h1>🚀 Clean Firebase Dashboard</h1>
+                <p>Connect to your Firebase data with confidence</p>
+            </div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="zoki.nedelkovski@gmail.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" value="Nedel@123" required>
+                </div>
+                
+                <button type="submit" class="login-btn" id="login-btn">🔥 Login with Firebase</button>
+            </form>
+            
+            <div id="status"></div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="dashboard" id="dashboard">
+            <div class="dashboard-header">
+                <h1>📊 Firebase Analytics Dashboard</h1>
+                <div class="user-info">
+                    <span class="user-email" id="user-email"></span>
+                    <button class="logout-btn" id="logout-btn">Logout</button>
+                </div>
+            </div>
+
+            <button class="update-btn" id="update-analytics-btn">🔄 Update Analytics</button>
+            <div id="dashboard-status"></div>
+
+            <div class="dashboard-content">
+                <!-- Sidebar Navigation -->
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <h3>📈 Analytics</h3>
+                    </div>
+                    <nav class="sidebar-nav">
+                        <ul>
+                            <li><a href="#" class="nav-item active" data-view="overview">📊 Overview</a></li>
+                            <li><a href="#" class="nav-item" data-view="salary-trends">💰 Salary Trends</a></li>
+                            <li><a href="#" class="nav-item" data-view="performance">🎯 Performance</a></li>
+                            <li><a href="#" class="nav-item" data-view="risk">⚠️ Risk Analysis</a></li>
+                            <li><a href="#" class="nav-item" data-view="demographics">👥 Demographics</a></li>
+                            <li><a href="#" class="nav-item" data-view="ai-insights">🤖 AI Insights</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Main Content Area -->
+                <div class="main-content">
+                    <!-- Overview Section -->
+                    <div class="content-section active" id="overview-section">
+                        <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 id="total-headcount">-</h3>
+                    <p>Total Headcount</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="total-monthly-cost">-</h3>
+                    <p>Total Monthly Cost</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="total-annual-cost">-</h3>
+                    <p>Total Annual Cost</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="average-monthly-salary">-</h3>
+                    <p>Average Monthly Salary</p>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>👥 Headcount by Department</h3>
+                    <div class="chart-canvas">
+                        <canvas id="department-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>📈 Average Salary by Department</h3>
+                    <div class="chart-canvas">
+                        <canvas id="salary-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>🎯 Headcount by Level</h3>
+                    <div class="chart-canvas">
+                        <canvas id="level-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>⚖️ Gender Diversity</h3>
+                    <div class="chart-canvas">
+                        <canvas id="gender-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+                    </div>
+
+                    <!-- Salary Trends Section -->
+                    <div class="content-section" id="salary-trends-section">
+                        <div class="section-header">
+                            <h3>💰 Interactive Salary Trends</h3>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-controls">
+                                <select id="trend-filter" class="trend-filter">
+                                    <option value="department">By Department</option>
+                                    <option value="level">By Level</option>
+                                    <option value="all">All Employees</option>
+                                </select>
+                                <button id="refresh-trends" class="refresh-btn">🔄 Refresh</button>
+                            </div>
+                            <div class="chart-canvas">
+                                <canvas id="salary-trends-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Section -->
+                    <div class="content-section" id="performance-section">
+                        <div class="section-header">
+                            <h3>🎯 Performance Analytics</h3>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-controls">
+                                <select id="performance-filter" class="trend-filter">
+                                    <option value="heatmap">Performance by Department & Level</option>
+                                    <option value="trends">Performance Distribution</option>
+                                    <option value="distribution">High Performers by Department</option>
+                                </select>
+                                <button id="refresh-performance" class="refresh-btn">🔄 Refresh</button>
+                            </div>
+                            <div class="chart-canvas">
+                                <canvas id="performance-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- Risk Analysis Section -->
+                <div class="content-section" id="risk-section">
+                    <div class="section-header">
+                        <h3>⚠️ Risk Analysis</h3>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-controls">
+                            <select id="risk-filter" class="trend-filter">
+                                <option value="overview">Risk Overview</option>
+                                <option value="retention">Retention Risk</option>
+                                <option value="performance">Performance Risk</option>
+                                <option value="alerts">Active Alerts</option>
+                            </select>
+                            <button id="refresh-risk" class="refresh-btn">🔄 Refresh</button>
+                        </div>
+                        <div class="chart-canvas">
+                            <canvas id="risk-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                    <!-- Demographics Section -->
+                    <div class="content-section" id="demographics-section">
+                        <div class="section-header">
+                            <h3>👥 Advanced Demographics</h3>
+                        </div>
+                        <div class="chart-container">
+                            <div class="chart-controls">
+                                <select id="demographics-filter" class="trend-filter">
+                                    <option value="overview">Demographics Overview</option>
+                                    <option value="age">Age Distribution</option>
+                                    <option value="location">Geographic Distribution</option>
+                                    <option value="tenure">Tenure Analysis</option>
+                                    <option value="diversity">Diversity Metrics</option>
+                                </select>
+                                <button id="refresh-demographics" class="refresh-btn">🔄 Refresh</button>
+                            </div>
+                            <div class="chart-canvas">
+                                <canvas id="demographics-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Insights Section -->
+                    <div class="content-section" id="ai-insights-section">
+                        <div class="section-header">
+                            <h3>🤖 AI Insights</h3>
+                        </div>
+                        <div id="ai-insights-content">
+                            <div class="ai-controls">
+                                <button id="generate-insights" class="btn-primary">
+                                    🧠 Generate AI Insights
+                                </button>
+                                <button id="ai-chat-btn" class="btn-secondary">
+                                    💬 AI Chat
+                                </button>
+                            </div>
+                            <div id="ai-insights-display" class="insights-container">
+                                <div class="insights-placeholder">
+                                    <h4>🔮 AI-Powered Analytics</h4>
+                                    <p>Click "Generate AI Insights" to get intelligent analysis of your workforce data.</p>
+                                    <p><strong>Admin Only:</strong> Generate AI Insights requires admin privileges.</p>
+                                    <p><strong>AI Chat:</strong> Available to all users, but requires admin permissions to use.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- AI Chat Modal -->
+                        <div id="ai-chat-modal" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3>🤖 AI Chat Assistant</h3>
+                                    <span class="close">&times;</span>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="chat-messages" class="chat-messages"></div>
+                                    <div class="chat-input">
+                                        <input type="text" id="chat-input" placeholder="Ask me about your workforce data...">
+                                        <button id="send-chat">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Step 1: Import all necessary functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut, connectAuthEmulator } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFunctions, httpsCallable, connectFunctionsEmulator } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js";
+        import { getFirestore, collection, getDocs, connectFirestoreEmulator } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // Step 2: Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA5vLyX5Zq_YTBj0coqUN6RTFxGUr_KHWw",
+            authDomain: "ai-payroll-dashboard.firebaseapp.com",
+            projectId: "ai-payroll-dashboard",
+            storageBucket: "ai-payroll-dashboard.firebasestorage.app",
+            messagingSenderId: "446937180242",
+            appId: "1:446937180242:web:7beb8c5ccf1e5a8045178b"
+        };
+
+        // Step 3: Initialize Firebase services
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const functions = getFunctions(app, "europe-west1");
+        const db = getFirestore(app);
+
+        // Step 4: Connect to Local Emulators if running locally
+        if (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") {
+            console.log("🔧 Dashboard connecting to local emulators");
+            connectAuthEmulator(auth, "http://127.0.0.1:9099");
+            connectFunctionsEmulator(functions, "127.0.0.1", 5001); 
+            connectFirestoreEmulator(db, "127.0.0.1", 8080);
+        }
+
+        // Chart instances to prevent re-drawing
+        let departmentChart, salaryChart, levelChart, genderChart, salaryTrendsChart, performanceChart, riskChart, demographicsChart;
+        let analyticsData = null; // Cache the analytics data
+
+        // Helper to format currency
+        function formatCurrency(amount) {
+            if (typeof amount !== 'number') return '$0.00';
+            return `$${amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+
+        // Chart.js is ready to use
+
+        // --- Chart Rendering Functions ---
+        function renderDepartmentChart(data) {
+            const ctx = document.getElementById('department-chart').getContext('2d');
+            if (departmentChart) departmentChart.destroy();
+            departmentChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: 'Employees',
+                        data: Object.values(data),
+                        backgroundColor: 'rgba(0, 123, 255, 0.6)',
+                        borderColor: 'rgba(0, 123, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function renderSalaryChart(data) {
+            const ctx = document.getElementById('salary-chart').getContext('2d');
+            if (salaryChart) salaryChart.destroy();
+            salaryChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: 'Average Salary',
+                        data: Object.values(data),
+                        backgroundColor: 'rgba(40, 167, 69, 0.6)',
+                        borderColor: 'rgba(40, 167, 69, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                }
+                            }
+                        } 
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function renderLevelChart(data) {
+            const ctx = document.getElementById('level-chart').getContext('2d');
+            if (levelChart) levelChart.destroy();
+            levelChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        data: Object.values(data),
+                        backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+        }
+
+        function renderGenderChart(data) {
+            const ctx = document.getElementById('gender-chart').getContext('2d');
+            if (genderChart) genderChart.destroy();
+            genderChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        data: Object.values(data),
+                        backgroundColor: ['#6f42c1', '#fd7e14', '#20c997', '#e83e8c', '#6610f2']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+        }
+
+        // --- Interactive Salary Trends Chart ---
+        async function renderSalaryTrendsChart(filterType = 'department') {
+            const ctx = document.getElementById('salary-trends-chart').getContext('2d');
+            
+            // Properly destroy existing chart
+            if (salaryTrendsChart) {
+                salaryTrendsChart.destroy();
+                salaryTrendsChart = null;
+            }
+
+            // Small delay to ensure canvas is cleared
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            try {
+                // Now we can query Firestore directly! 🎉
+                const employeesSnap = await getDocs(collection(db, 'employees'));
+                const employees = [];
+                employeesSnap.forEach(doc => {
+                    const data = doc.data();
+                    if (data.status === 'Active' && data.baseSalary) {
+                        employees.push(data);
+                    }
+                });
+
+                console.log(`📊 Loaded ${employees.length} active employees for trends analysis`);
+
+                let chartConfig = {};
+
+                if (filterType === 'department') {
+                    // Group by department and calculate salary trends
+                    const deptData = {};
+                    employees.forEach(emp => {
+                        if (!deptData[emp.department]) {
+                            deptData[emp.department] = [];
+                        }
+                        deptData[emp.department].push(emp.baseSalary);
+                    });
+
+                    const departments = Object.keys(deptData);
+                    const avgSalaries = departments.map(dept => 
+                        deptData[dept].reduce((sum, sal) => sum + sal, 0) / deptData[dept].length
+                    );
+
+                    chartConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: departments,
+                            datasets: [{
+                                label: 'Average Salary',
+                                data: avgSalaries,
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function(value) {
+                                            return '$' + value.toLocaleString();
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return 'Avg Salary: $' + context.parsed.y.toLocaleString();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else if (filterType === 'level') {
+                    // Group by level using real employee data
+                    const levelData = {};
+                    employees.forEach(emp => {
+                        if (!levelData[emp.level]) {
+                            levelData[emp.level] = [];
+                        }
+                        levelData[emp.level].push(emp.baseSalary);
+                    });
+
+                    const levels = Object.keys(levelData);
+                    const totalSalaries = levels.map(level =>
+                        levelData[level].reduce((sum, sal) => sum + sal, 0)
+                    );
+                    
+                    // Calculate total budget for percentage calculation
+                    const totalBudget = totalSalaries.reduce((sum, sal) => sum + sal, 0);
+                    
+                    // Convert to percentages
+                    const percentages = totalSalaries.map(salary => 
+                        ((salary / totalBudget) * 100).toFixed(1)
+                    );
+
+                    chartConfig = {
+                        type: 'doughnut',
+                        data: {
+                            labels: levels,
+                            datasets: [{
+                                data: percentages,
+                                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { position: 'top' },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const level = context.label;
+                                            const percentage = context.parsed;
+                                            const totalSalary = totalSalaries[context.dataIndex];
+                                            const avgSalary = totalSalary / levelData[level].length;
+                                            return `${level}: ${percentage}% ($${totalSalary.toLocaleString()} total, $${avgSalary.toLocaleString()} avg)`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else {
+                    // All employees - real salary distribution
+                    const salaryRanges = {
+                        '< $50k': 0,
+                        '$50k-$75k': 0,
+                        '$75k-$100k': 0,
+                        '$100k-$150k': 0,
+                        '> $150k': 0
+                    };
+
+                    employees.forEach(emp => {
+                        const salary = emp.baseSalary;
+                        if (salary < 50000) salaryRanges['< $50k']++;
+                        else if (salary < 75000) salaryRanges['$50k-$75k']++;
+                        else if (salary < 100000) salaryRanges['$75k-$100k']++;
+                        else if (salary < 150000) salaryRanges['$100k-$150k']++;
+                        else salaryRanges['> $150k']++;
+                    });
+
+                    chartConfig = {
+                        type: 'line',
+                        data: {
+                            labels: Object.keys(salaryRanges),
+                            datasets: [{
+                                label: 'Employee Count',
+                                data: Object.values(salaryRanges),
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                tension: 0.4,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: { beginAtZero: true }
+                            },
+                            plugins: {
+                                legend: { display: false }
+                            }
+                        }
+                    };
+                }
+
+                salaryTrendsChart = new Chart(ctx, chartConfig);
+                console.log(`✅ Salary trends chart rendered successfully (${filterType})`);
+            } catch (error) {
+                console.error('Error rendering salary trends chart:', error);
+                // Clear the canvas if there's an error
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            }
+        }
+
+        // --- Performance Heatmap Chart ---
+        async function renderPerformanceChart(filterType = 'heatmap') {
+            const ctx = document.getElementById('performance-chart').getContext('2d');
+            
+            // Properly destroy existing chart
+            if (performanceChart) {
+                performanceChart.destroy();
+                performanceChart = null;
+            }
+
+            // Small delay to ensure canvas is cleared
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            try {
+                // Query Firestore for employee performance data
+                const employeesSnap = await getDocs(collection(db, 'employees'));
+                const employees = [];
+                employeesSnap.forEach(doc => {
+                    const data = doc.data();
+                    if (data.status === 'Active' && data.performanceRating) {
+                        employees.push(data);
+                    }
+                });
+
+                console.log(`📊 Loaded ${employees.length} active employees for performance analysis`);
+
+                let chartConfig = {};
+
+                if (filterType === 'heatmap') {
+                    // Create Department vs Level Performance Heatmap
+                    const departments = [...new Set(employees.map(emp => emp.department))].sort();
+                    const levels = [...new Set(employees.map(emp => emp.level))].sort();
+                    
+                    // Create heatmap data matrix
+                    const heatmapData = [];
+                    const labels = [];
+                    
+                    levels.forEach(level => {
+                        const row = [];
+                        departments.forEach(dept => {
+                            const deptLevelEmployees = employees.filter(emp => 
+                                emp.department === dept && emp.level === level
+                            );
+                            
+                            if (deptLevelEmployees.length > 0) {
+                                const avgPerformance = deptLevelEmployees.reduce((sum, emp) => 
+                                    sum + emp.performanceRating, 0) / deptLevelEmployees.length;
+                                row.push(avgPerformance);
+                            } else {
+                                row.push(null); // No data for this combination
+                            }
+                        });
+                        heatmapData.push(row);
+                        labels.push(level);
+                    });
+
+                    // Create dataset for heatmap with performance-based coloring
+                    const datasets = [];
+                    
+                    heatmapData.forEach((row, levelIndex) => {
+                        const dataPoints = row.map((value, deptIndex) => {
+                            // Skip null/undefined values
+                            if (value === null || value === undefined) return null;
+                            
+                            // Color based on performance rating
+                            let color = '#ff4444'; // Red for low performance
+                            if (value >= 4.0) color = '#44ff88'; // Green for high performance
+                            else if (value >= 3.5) color = '#88ff44'; // Light green
+                            else if (value >= 3.0) color = '#ffdd44'; // Yellow
+                            else if (value >= 2.5) color = '#ff8844'; // Orange
+                            
+                            return {
+                                x: deptIndex,
+                                y: levelIndex,
+                                v: value,
+                                backgroundColor: color,
+                                borderColor: color
+                            };
+                        }).filter(point => point !== null); // Remove null points
+                        
+                        if (dataPoints.length > 0) {
+                            datasets.push({
+                                label: levels[levelIndex],
+                                data: dataPoints,
+                                borderWidth: 1
+                            });
+                        }
+                    });
+
+                    // Create a matrix-style bar chart for better visualization
+                    const matrixData = [];
+                    const backgroundColors = [];
+                    const borderColors = [];
+                    const chartLabels = [];
+                    
+                    heatmapData.forEach((row, levelIndex) => {
+                        row.forEach((value, deptIndex) => {
+                            if (value !== null && value !== undefined) {
+                                // Create label for this department-level combination
+                                const label = `${departments[deptIndex]} - ${levels[levelIndex]}`;
+                                chartLabels.push(label);
+                                matrixData.push(value);
+                                
+                                // Color based on performance rating
+                                let color = 'rgba(255, 68, 68, 0.8)'; // Red for low performance
+                                if (value >= 4.0) color = 'rgba(68, 255, 136, 0.8)'; // Green for high performance
+                                else if (value >= 3.5) color = 'rgba(136, 255, 68, 0.8)'; // Light green
+                                else if (value >= 3.0) color = 'rgba(255, 221, 68, 0.8)'; // Yellow
+                                else if (value >= 2.5) color = 'rgba(255, 136, 68, 0.8)'; // Orange
+                                
+                                backgroundColors.push(color);
+                                borderColors.push(color.replace('0.8', '1'));
+                            }
+                        });
+                    });
+
+                    chartConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: chartLabels,
+                            datasets: [{
+                                label: 'Average Performance Rating',
+                                data: matrixData,
+                                backgroundColor: backgroundColors,
+                                borderColor: borderColors,
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            indexAxis: 'y', // Horizontal bars
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    max: 5,
+                                    title: {
+                                        display: true,
+                                        text: 'Performance Rating (1-5)'
+                                    }
+                                },
+                                y: {
+                                    title: {
+                                        display: true,
+                                        text: 'Department - Level'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const value = context.parsed.x;
+                                            return `Avg Performance: ${value.toFixed(2)}/5.0`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else if (filterType === 'trends') {
+                    // Performance trends over time (simplified for now)
+                    const performanceRanges = {
+                        '1.0-2.0': 0,
+                        '2.0-3.0': 0,
+                        '3.0-4.0': 0,
+                        '4.0-5.0': 0
+                    };
+
+                    employees.forEach(emp => {
+                        const rating = emp.performanceRating;
+                        if (rating >= 1.0 && rating < 2.0) performanceRanges['1.0-2.0']++;
+                        else if (rating >= 2.0 && rating < 3.0) performanceRanges['2.0-3.0']++;
+                        else if (rating >= 3.0 && rating < 4.0) performanceRanges['3.0-4.0']++;
+                        else if (rating >= 4.0 && rating <= 5.0) performanceRanges['4.0-5.0']++;
+                    });
+
+                    chartConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: Object.keys(performanceRanges),
+                            datasets: [{
+                                label: 'Employee Count',
+                                data: Object.values(performanceRanges),
+                                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: { beginAtZero: true },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Performance Rating Range'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.parsed.y} employees`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else {
+                    // Performance distribution by department (showing individual ratings, not averages)
+                    const deptPerformance = {};
+                    employees.forEach(emp => {
+                        if (!deptPerformance[emp.department]) {
+                            deptPerformance[emp.department] = [];
+                        }
+                        deptPerformance[emp.department].push(emp.performanceRating);
+                    });
+
+                    const departments = Object.keys(deptPerformance);
+                    
+                    // Calculate performance distribution metrics for each department
+                    const performanceMetrics = departments.map(dept => {
+                        const ratings = deptPerformance[dept];
+                        const avgRating = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
+                        const highPerformers = ratings.filter(r => r >= 4.0).length;
+                        const totalEmployees = ratings.length;
+                        const highPerformerRatio = (highPerformers / totalEmployees) * 100;
+                        
+                        // Use high performer ratio as the metric (0-100%)
+                        return highPerformerRatio;
+                    });
+
+                    chartConfig = {
+                        type: 'radar',
+                        data: {
+                            labels: departments,
+                            datasets: [{
+                                label: 'High Performers (%)',
+                                data: performanceMetrics,
+                                backgroundColor: 'rgba(99, 255, 132, 0.15)',
+                                borderColor: 'rgba(99, 255, 132, 1)',
+                                borderWidth: 3,
+                                pointBackgroundColor: 'rgba(99, 255, 132, 1)',
+                                pointBorderColor: '#ffffff',
+                                pointBorderWidth: 3,
+                                pointRadius: 6,
+                                pointHoverBackgroundColor: '#ffffff',
+                                pointHoverBorderColor: 'rgba(99, 255, 132, 1)',
+                                pointHoverRadius: 8,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                r: {
+                                    beginAtZero: true,
+                                    min: 0,
+                                    max: 100,
+                                    grid: {
+                                        color: 'rgba(200, 200, 200, 0.3)',
+                                        lineWidth: 1
+                                    },
+                                    angleLines: {
+                                        color: 'rgba(200, 200, 200, 0.3)',
+                                        lineWidth: 1
+                                    },
+                                    pointLabels: {
+                                        font: {
+                                            size: 12,
+                                            weight: 'bold'
+                                        },
+                                        color: '#333333'
+                                    },
+                                    ticks: {
+                                        stepSize: 20,
+                                        font: {
+                                            size: 10
+                                        },
+                                        color: '#666666',
+                                        callback: function(value) {
+                                            return value + '%';
+                                        },
+                                        backdropColor: 'rgba(255, 255, 255, 0.8)',
+                                        backdropPadding: 2
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: { 
+                                    display: true,
+                                    position: 'top',
+                                    labels: {
+                                        font: {
+                                            size: 14,
+                                            weight: 'bold'
+                                        },
+                                        color: '#333333',
+                                        padding: 20
+                                    }
+                                },
+                                tooltip: {
+                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                    titleColor: '#ffffff',
+                                    bodyColor: '#ffffff',
+                                    borderColor: 'rgba(99, 255, 132, 1)',
+                                    borderWidth: 2,
+                                    cornerRadius: 8,
+                                    displayColors: false,
+                                    callbacks: {
+                                        title: function(context) {
+                                            return context[0].label;
+                                        },
+                                        label: function(context) {
+                                            const dept = context.label;
+                                            const ratings = deptPerformance[dept];
+                                            if (!ratings || ratings.length === 0) return 'No data available';
+                                            
+                                            const avgRating = ratings.reduce((sum, r) => sum + r, 0) / ratings.length;
+                                            const highPerformers = ratings.filter(r => r >= 4.0).length;
+                                            
+                                            return [
+                                                `🌟 High Performers: ${(context.parsed.r || 0).toFixed(1)}%`,
+                                                `📊 Avg Rating: ${avgRating.toFixed(2)}/5.0`,
+                                                `👥 Total Employees: ${ratings.length}`
+                                            ];
+                                        }
+                                    }
+                                }
+                            },
+                            animation: {
+                                tension: {
+                                    duration: 1000,
+                                    easing: 'easeInOutBounce',
+                                    from: 1,
+                                    to: 0,
+                                    loop: false
+                                }
+                            }
+                        }
+                    };
+                }
+
+                performanceChart = new Chart(ctx, chartConfig);
+                console.log(`✅ Performance chart rendered successfully (${filterType})`);
+            } catch (error) {
+                console.error('Error rendering performance chart:', error);
+                // Clear the canvas if there's an error
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            }
+        }
+
+        // --- Risk Analysis Chart ---
+        async function renderRiskChart(filterType = 'overview') {
+            const ctx = document.getElementById('risk-chart').getContext('2d');
+            
+            if (riskChart) {
+                riskChart.destroy();
+                riskChart = null;
+            }
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            try {
+                const employeesSnap = await getDocs(collection(db, 'employees'));
+                const employees = [];
+                employeesSnap.forEach(doc => {
+                    const data = doc.data();
+                    if (data.status === 'Active') {
+                        employees.push(data);
+                    }
+                });
+
+                console.log(`📊 Loaded ${employees.length} active employees for risk analysis`);
+
+                let chartConfig = {};
+
+                if (filterType === 'overview') {
+                    // Risk Overview - Multiple risk indicators
+                    const riskCategories = {
+                        'High Performance Risk': 0,
+                        'Retention Risk': 0,
+                        'Low Satisfaction': 0,
+                        'Salary Below Market': 0,
+                        'Long Tenure Risk': 0
+                    };
+
+                    employees.forEach(emp => {
+                        // High Performance Risk (performance < 3.0)
+                        if (emp.performanceRating && emp.performanceRating < 3.0) {
+                            riskCategories['High Performance Risk']++;
+                        }
+                        
+                        // Retention Risk (performance declining or low)
+                        if (emp.performanceTrend === 'declining' || (emp.performanceRating && emp.performanceRating < 2.5)) {
+                            riskCategories['Retention Risk']++;
+                        }
+                        
+                        // Low Satisfaction (estimated based on performance and tenure)
+                        if (emp.performanceRating && emp.performanceRating < 3.5 && emp.startDate) {
+                            const startDate = new Date(emp.startDate);
+                            const monthsSinceStart = (new Date() - startDate) / (1000 * 60 * 60 * 24 * 30);
+                            if (monthsSinceStart > 12) { // More than 1 year
+                                riskCategories['Low Satisfaction']++;
+                            }
+                        }
+                        
+                        // Salary Below Market (estimated based on level and salary)
+                        if (emp.baseSalary && emp.level) {
+                            const expectedSalary = {
+                                'Intern': 40000,
+                                'Junior': 60000,
+                                'Mid': 80000,
+                                'Senior': 120000,
+                                'Lead': 150000
+                            };
+                            if (emp.baseSalary < expectedSalary[emp.level] * 0.8) {
+                                riskCategories['Salary Below Market']++;
+                            }
+                        }
+                        
+                        // Long Tenure Risk (very long tenure with declining performance)
+                        if (emp.startDate && emp.performanceTrend === 'declining') {
+                            const startDate = new Date(emp.startDate);
+                            const yearsSinceStart = (new Date() - startDate) / (1000 * 60 * 60 * 24 * 365);
+                            if (yearsSinceStart > 5) {
+                                riskCategories['Long Tenure Risk']++;
+                            }
+                        }
+                    });
+
+                    chartConfig = {
+                        type: 'doughnut',
+                        data: {
+                            labels: Object.keys(riskCategories),
+                            datasets: [{
+                                data: Object.values(riskCategories),
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.8)',   // High Performance Risk - Red
+                                    'rgba(255, 159, 64, 0.8)',  // Retention Risk - Orange
+                                    'rgba(255, 205, 86, 0.8)',  // Low Satisfaction - Yellow
+                                    'rgba(75, 192, 192, 0.8)',  // Salary Below Market - Teal
+                                    'rgba(153, 102, 255, 0.8)'  // Long Tenure Risk - Purple
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(255, 205, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                    labels: {
+                                        padding: 20,
+                                        usePointStyle: true,
+                                        font: {
+                                            size: 12,
+                                            weight: 'bold'
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const label = context.label;
+                                            const value = context.parsed;
+                                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                            const percentage = ((value / total) * 100).toFixed(1);
+                                            return `${label}: ${value} employees (${percentage}%)`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else if (filterType === 'retention') {
+                    // Retention Risk by Department
+                    const deptRetentionRisk = {};
+                    
+                    employees.forEach(emp => {
+                        if (!deptRetentionRisk[emp.department]) {
+                            deptRetentionRisk[emp.department] = {
+                                total: 0,
+                                atRisk: 0
+                            };
+                        }
+                        deptRetentionRisk[emp.department].total++;
+                        
+                        // Risk factors: declining performance, low performance, long tenure with issues
+                        let isAtRisk = false;
+                        if (emp.performanceTrend === 'declining') isAtRisk = true;
+                        if (emp.performanceRating && emp.performanceRating < 2.5) isAtRisk = true;
+                        if (emp.startDate) {
+                            const startDate = new Date(emp.startDate);
+                            const yearsSinceStart = (new Date() - startDate) / (1000 * 60 * 60 * 24 * 365);
+                            if (yearsSinceStart > 3 && emp.performanceRating && emp.performanceRating < 3.0) {
+                                isAtRisk = true;
+                            }
+                        }
+                        
+                        if (isAtRisk) {
+                            deptRetentionRisk[emp.department].atRisk++;
+                        }
+                    });
+
+                    const departments = Object.keys(deptRetentionRisk);
+                    const riskPercentages = departments.map(dept => {
+                        const data = deptRetentionRisk[dept];
+                        return (data.atRisk / data.total) * 100;
+                    });
+
+                    chartConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: departments,
+                            datasets: [{
+                                label: 'Retention Risk %',
+                                data: riskPercentages,
+                                backgroundColor: riskPercentages.map(risk => {
+                                    if (risk > 30) return 'rgba(255, 99, 132, 0.8)'; // High risk - Red
+                                    if (risk > 15) return 'rgba(255, 159, 64, 0.8)'; // Medium risk - Orange
+                                    return 'rgba(75, 192, 192, 0.8)'; // Low risk - Teal
+                                }),
+                                borderColor: riskPercentages.map(risk => {
+                                    if (risk > 30) return 'rgba(255, 99, 132, 1)';
+                                    if (risk > 15) return 'rgba(255, 159, 64, 1)';
+                                    return 'rgba(75, 192, 192, 1)';
+                                }),
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 25,
+                                    title: {
+                                        display: true,
+                                        text: 'Risk Percentage (%)'
+                                    },
+                                    ticks: {
+                                        stepSize: 5,
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Department'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const dept = context.label;
+                                            const risk = context.parsed.y;
+                                            const data = deptRetentionRisk[dept];
+                                            return [
+                                                `${dept}: ${risk.toFixed(1)}% at risk`,
+                                                `${data.atRisk} of ${data.total} employees`
+                                            ];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else if (filterType === 'performance') {
+                    // Performance Risk Trends
+                    const performanceRisk = {
+                        'Low Risk (4.0+)': 0,
+                        'Medium Risk (3.0-4.0)': 0,
+                        'High Risk (2.0-3.0)': 0,
+                        'Critical Risk (<2.0)': 0
+                    };
+
+                    employees.forEach(emp => {
+                        if (emp.performanceRating) {
+                            if (emp.performanceRating >= 4.0) {
+                                performanceRisk['Low Risk (4.0+)']++;
+                            } else if (emp.performanceRating >= 3.0) {
+                                performanceRisk['Medium Risk (3.0-4.0)']++;
+                            } else if (emp.performanceRating >= 2.0) {
+                                performanceRisk['High Risk (2.0-3.0)']++;
+                            } else {
+                                performanceRisk['Critical Risk (<2.0)']++;
+                            }
+                        }
+                    });
+
+                    chartConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: Object.keys(performanceRisk),
+                            datasets: [{
+                                label: 'Employee Count',
+                                data: Object.values(performanceRisk),
+                                backgroundColor: [
+                                    'rgba(75, 192, 192, 0.8)',  // Low Risk - Teal
+                                    'rgba(255, 205, 86, 0.8)',  // Medium Risk - Yellow
+                                    'rgba(255, 159, 64, 0.8)',  // High Risk - Orange
+                                    'rgba(255, 99, 132, 0.8)'   // Critical Risk - Red
+                                ],
+                                borderColor: [
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(255, 205, 86, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(255, 99, 132, 1)'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Number of Employees'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Performance Risk Level'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.parsed.y} employees`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else {
+                    // Active Alerts - Real-time risk alerts
+                    const alerts = [];
+                    
+                    employees.forEach(emp => {
+                        // Critical Performance Alert
+                        if (emp.performanceRating && emp.performanceRating < 2.0) {
+                            alerts.push({
+                                type: 'Critical Performance',
+                                employee: `${emp.firstName} ${emp.lastName}`,
+                                department: emp.department,
+                                level: emp.level,
+                                message: `Performance rating: ${emp.performanceRating}/5.0`,
+                                severity: 'critical',
+                                color: '#ff4444'
+                            });
+                        }
+                        
+                        // Declining Performance Alert
+                        if (emp.performanceTrend === 'declining') {
+                            alerts.push({
+                                type: 'Declining Performance',
+                                employee: `${emp.firstName} ${emp.lastName}`,
+                                department: emp.department,
+                                level: emp.level,
+                                message: 'Performance trend is declining',
+                                severity: 'high',
+                                color: '#ff8844'
+                            });
+                        }
+                        
+                        // Long Tenure with Issues Alert
+                        if (emp.startDate && emp.performanceRating && emp.performanceRating < 3.0) {
+                            const startDate = new Date(emp.startDate);
+                            const yearsSinceStart = (new Date() - startDate) / (1000 * 60 * 60 * 24 * 365);
+                            if (yearsSinceStart > 3) {
+                                alerts.push({
+                                    type: 'Long Tenure Risk',
+                                    employee: `${emp.firstName} ${emp.lastName}`,
+                                    department: emp.department,
+                                    level: emp.level,
+                                    message: `${yearsSinceStart.toFixed(1)} years tenure with low performance`,
+                                    severity: 'medium',
+                                    color: '#ffdd44'
+                                });
+                            }
+                        }
+                    });
+
+                    // Group alerts by type
+                    const alertTypes = {};
+                    alerts.forEach(alert => {
+                        if (!alertTypes[alert.type]) {
+                            alertTypes[alert.type] = 0;
+                        }
+                        alertTypes[alert.type]++;
+                    });
+
+                    // If no alerts, show a message
+                    if (Object.keys(alertTypes).length === 0) {
+                        // Clear the canvas and show a message
+                        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                        ctx.fillStyle = '#666666';
+                        ctx.font = '16px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('🎉 No Active Alerts', ctx.canvas.width / 2, ctx.canvas.height / 2 - 10);
+                        ctx.fillText('All employees are performing well!', ctx.canvas.width / 2, ctx.canvas.height / 2 + 20);
+                        console.log('✅ No active alerts - showing message');
+                        return;
+                    }
+
+                    chartConfig = {
+                        type: 'doughnut',
+                        data: {
+                            labels: Object.keys(alertTypes),
+                            datasets: [{
+                                data: Object.values(alertTypes),
+                                backgroundColor: [
+                                    'rgba(255, 68, 68, 0.8)',   // Critical - Red
+                                    'rgba(255, 136, 68, 0.8)',  // High - Orange
+                                    'rgba(255, 221, 68, 0.8)'   // Medium - Yellow
+                                ],
+                                borderColor: [
+                                    'rgba(255, 68, 68, 1)',
+                                    'rgba(255, 136, 68, 1)',
+                                    'rgba(255, 221, 68, 1)'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                    labels: {
+                                        padding: 20,
+                                        usePointStyle: true,
+                                        font: {
+                                            size: 12,
+                                            weight: 'bold'
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const label = context.label;
+                                            const value = context.parsed;
+                                            return `${label}: ${value} active alerts`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                }
+
+                riskChart = new Chart(ctx, chartConfig);
+                console.log(`✅ Risk chart rendered successfully (${filterType})`);
+            } catch (error) {
+                console.error('Error rendering risk chart:', error);
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            }
+        }
+
+        // --- Demographics Chart ---
+        async function renderDemographicsChart(filterType = 'overview') {
+            const ctx = document.getElementById('demographics-chart').getContext('2d');
+            
+            if (demographicsChart) {
+                demographicsChart.destroy();
+                demographicsChart = null;
+            }
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            try {
+                const employeesSnap = await getDocs(collection(db, 'employees'));
+                const employees = [];
+                employeesSnap.forEach(doc => {
+                    const data = doc.data();
+                    if (data.status === 'Active') {
+                        employees.push(data);
+                    }
+                });
+
+                console.log(`📊 Loaded ${employees.length} active employees for demographics analysis`);
+
+                let chartConfig = {};
+
+                if (filterType === 'overview') {
+                    // Demographics Overview - Multiple demographic indicators
+                    const demographics = {
+                        'Gender Distribution': 0,
+                        'Age Groups': 0,
+                        'Geographic Spread': 0,
+                        'Tenure Levels': 0,
+                        'Department Mix': 0
+                    };
+
+                    // Calculate diversity metrics
+                    const genders = [...new Set(employees.map(emp => emp.gender))];
+                    const locations = [...new Set(employees.map(emp => emp.location))];
+                    const departments = [...new Set(employees.map(emp => emp.department))];
+                    
+                    // Age groups (estimated from DOB)
+                    let ageGroups = { 'Under 30': 0, '30-40': 0, '40-50': 0, 'Over 50': 0 };
+                    employees.forEach(emp => {
+                        if (emp.dob) {
+                            const birthYear = new Date(emp.dob).getFullYear();
+                            const currentYear = new Date().getFullYear();
+                            const age = currentYear - birthYear;
+                            
+                            if (age < 30) ageGroups['Under 30']++;
+                            else if (age <= 40) ageGroups['30-40']++;
+                            else if (age <= 50) ageGroups['40-50']++;
+                            else ageGroups['Over 50']++;
+                        }
+                    });
+
+                    // Tenure levels
+                    let tenureLevels = { 'New (0-1 years)': 0, 'Junior (1-3 years)': 0, 'Mid (3-5 years)': 0, 'Senior (5+ years)': 0 };
+                    employees.forEach(emp => {
+                        if (emp.startDate) {
+                            const startYear = new Date(emp.startDate).getFullYear();
+                            const currentYear = new Date().getFullYear();
+                            const tenure = currentYear - startYear;
+                            
+                            if (tenure <= 1) tenureLevels['New (0-1 years)']++;
+                            else if (tenure <= 3) tenureLevels['Junior (1-3 years)']++;
+                            else if (tenure <= 5) tenureLevels['Mid (3-5 years)']++;
+                            else tenureLevels['Senior (5+ years)']++;
+                        }
+                    });
+
+                    chartConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: ['Gender Groups', 'Age Groups', 'Locations', 'Departments', 'Tenure Levels'],
+                            datasets: [{
+                                label: 'Count',
+                                data: [genders.length, Object.keys(ageGroups).length, locations.length, departments.length, Object.keys(tenureLevels).length],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.8)',
+                                    'rgba(54, 162, 235, 0.8)',
+                                    'rgba(255, 205, 86, 0.8)',
+                                    'rgba(75, 192, 192, 0.8)',
+                                    'rgba(153, 102, 255, 0.8)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 205, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Number of Categories'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Demographic Dimension'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const label = context.label;
+                                            const value = context.parsed.y;
+                                            return `${label}: ${value} categories`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else if (filterType === 'age') {
+                    // Age Distribution
+                    const ageGroups = { 'Under 25': 0, '25-30': 0, '30-35': 0, '35-40': 0, '40-45': 0, '45-50': 0, '50-55': 0, 'Over 55': 0 };
+                    
+                    employees.forEach(emp => {
+                        if (emp.dob) {
+                            const birthYear = new Date(emp.dob).getFullYear();
+                            const currentYear = new Date().getFullYear();
+                            const age = currentYear - birthYear;
+                            
+                            if (age < 25) ageGroups['Under 25']++;
+                            else if (age < 30) ageGroups['25-30']++;
+                            else if (age < 35) ageGroups['30-35']++;
+                            else if (age < 40) ageGroups['35-40']++;
+                            else if (age < 45) ageGroups['40-45']++;
+                            else if (age < 50) ageGroups['45-50']++;
+                            else if (age < 55) ageGroups['50-55']++;
+                            else ageGroups['Over 55']++;
+                        }
+                    });
+
+                    chartConfig = {
+                        type: 'doughnut',
+                        data: {
+                            labels: Object.keys(ageGroups),
+                            datasets: [{
+                                data: Object.values(ageGroups),
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.8)',
+                                    'rgba(54, 162, 235, 0.8)',
+                                    'rgba(255, 205, 86, 0.8)',
+                                    'rgba(75, 192, 192, 0.8)',
+                                    'rgba(153, 102, 255, 0.8)',
+                                    'rgba(255, 159, 64, 0.8)',
+                                    'rgba(199, 199, 199, 0.8)',
+                                    'rgba(83, 102, 255, 0.8)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 205, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(199, 199, 199, 1)',
+                                    'rgba(83, 102, 255, 1)'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                    labels: {
+                                        padding: 15,
+                                        usePointStyle: true,
+                                        font: {
+                                            size: 11,
+                                            weight: 'bold'
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const label = context.label;
+                                            const value = context.parsed;
+                                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                            const percentage = ((value / total) * 100).toFixed(1);
+                                            return `${label}: ${value} employees (${percentage}%)`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else if (filterType === 'location') {
+                    // Geographic Distribution
+                    const locations = {};
+                    employees.forEach(emp => {
+                        if (emp.location) {
+                            locations[emp.location] = (locations[emp.location] || 0) + 1;
+                        }
+                    });
+
+                    const sortedLocations = Object.entries(locations)
+                        .sort(([,a], [,b]) => b - a)
+                        .slice(0, 10); // Top 10 locations
+
+                    chartConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: sortedLocations.map(([location]) => location),
+                            datasets: [{
+                                label: 'Employee Count',
+                                data: sortedLocations.map(([, count]) => count),
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            indexAxis: 'y',
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Number of Employees'
+                                    }
+                                },
+                                y: {
+                                    title: {
+                                        display: true,
+                                        text: 'Location'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.parsed.x} employees`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else if (filterType === 'tenure') {
+                    // Tenure Analysis
+                    const tenureGroups = { 'New (0-1 years)': 0, 'Junior (1-3 years)': 0, 'Mid (3-5 years)': 0, 'Senior (5-10 years)': 0, 'Veteran (10+ years)': 0 };
+                    
+                    employees.forEach(emp => {
+                        if (emp.startDate) {
+                            const startDate = new Date(emp.startDate);
+                            const currentDate = new Date();
+                            const yearsDiff = (currentDate - startDate) / (1000 * 60 * 60 * 24 * 365);
+                            
+                            if (yearsDiff <= 1) tenureGroups['New (0-1 years)']++;
+                            else if (yearsDiff <= 3) tenureGroups['Junior (1-3 years)']++;
+                            else if (yearsDiff <= 5) tenureGroups['Mid (3-5 years)']++;
+                            else if (yearsDiff <= 10) tenureGroups['Senior (5-10 years)']++;
+                            else tenureGroups['Veteran (10+ years)']++;
+                        }
+                    });
+
+                    chartConfig = {
+                        type: 'bar',
+                        data: {
+                            labels: Object.keys(tenureGroups),
+                            datasets: [{
+                                label: 'Employee Count',
+                                data: Object.values(tenureGroups),
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.8)',
+                                    'rgba(255, 159, 64, 0.8)',
+                                    'rgba(255, 205, 86, 0.8)',
+                                    'rgba(75, 192, 192, 0.8)',
+                                    'rgba(153, 102, 255, 0.8)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(255, 205, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Number of Employees'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Tenure Level'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return `${context.parsed.y} employees`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
+                } else {
+                    // Diversity Metrics
+                    const diversityMetrics = {};
+                    
+                    // Gender diversity by department
+                    const deptGender = {};
+                    employees.forEach(emp => {
+                        if (!deptGender[emp.department]) {
+                            deptGender[emp.department] = {};
+                        }
+                        deptGender[emp.department][emp.gender] = (deptGender[emp.department][emp.gender] || 0) + 1;
+                    });
+
+                    // Calculate diversity index for each department
+                    const departments = Object.keys(deptGender);
+                    const diversityScores = departments.map(dept => {
+                        const genders = Object.values(deptGender[dept]);
+                        const total = genders.reduce((sum, count) => sum + count, 0);
+                        const diversity = genders.length > 1 ? 
+                            (1 - genders.reduce((sum, count) => sum + Math.pow(count/total, 2), 0)) * 100 : 0;
+                        return { department: dept, score: diversity };
+                    });
+
+                    chartConfig = {
+                        type: 'radar',
+                        data: {
+                            labels: diversityScores.map(d => d.department),
+                            datasets: [{
+                                label: 'Diversity Score (%)',
+                                data: diversityScores.map(d => d.score),
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 3,
+                                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                                pointBorderColor: '#ffffff',
+                                pointBorderWidth: 2,
+                                pointRadius: 6,
+                                pointHoverBackgroundColor: '#ffffff',
+                                pointHoverBorderColor: 'rgba(54, 162, 235, 1)',
+                                pointHoverRadius: 8
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                r: {
+                                    beginAtZero: true,
+                                    min: 0,
+                                    max: 100,
+                                    grid: {
+                                        color: 'rgba(200, 200, 200, 0.3)',
+                                        lineWidth: 1
+                                    },
+                                    angleLines: {
+                                        color: 'rgba(200, 200, 200, 0.3)',
+                                        lineWidth: 1
+                                    },
+                                    pointLabels: {
+                                        font: {
+                                            size: 11,
+                                            weight: 'bold'
+                                        },
+                                        color: '#333333'
+                                    },
+                                    ticks: {
+                                        stepSize: 20,
+                                        font: {
+                                            size: 10
+                                        },
+                                        color: '#666666',
+                                        callback: function(value) {
+                                            return value + '%';
+                                        },
+                                        backdropColor: 'rgba(255, 255, 255, 0.8)',
+                                        backdropPadding: 2
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: { 
+                                    display: true,
+                                    position: 'top',
+                                    labels: {
+                                        font: {
+                                            size: 14,
+                                            weight: 'bold'
+                                        },
+                                        color: '#333333',
+                                        padding: 20
+                                    }
+                                },
+                                tooltip: {
+                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                    titleColor: '#ffffff',
+                                    bodyColor: '#ffffff',
+                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    borderWidth: 2,
+                                    cornerRadius: 8,
+                                    displayColors: false,
+                                    callbacks: {
+                                        title: function(context) {
+                                            return context[0].label;
+                                        },
+                                        label: function(context) {
+                                            const dept = context[0].label;
+                                            const score = context[0].parsed.r;
+                                            const genderData = deptGender[dept];
+                                            const total = Object.values(genderData).reduce((sum, count) => sum + count, 0);
+                                            
+                                            let genderBreakdown = '';
+                                            Object.entries(genderData).forEach(([gender, count]) => {
+                                                const percentage = ((count / total) * 100).toFixed(1);
+                                                genderBreakdown += `${gender}: ${count} (${percentage}%), `;
+                                            });
+                                            
+                                            return [
+                                                `Diversity Score: ${score.toFixed(1)}%`,
+                                                `Total Employees: ${total}`,
+                                                `Gender Breakdown: ${genderBreakdown.slice(0, -2)}`
+                                            ];
+                                        }
+                                    }
+                                }
+                            },
+                            animation: {
+                                tension: {
+                                    duration: 1000,
+                                    easing: 'easeInOutBounce',
+                                    from: 1,
+                                    to: 0,
+                                    loop: false
+                                }
+                            }
+                        }
+                    };
+                }
+
+                demographicsChart = new Chart(ctx, chartConfig);
+                console.log(`✅ Demographics chart rendered successfully (${filterType})`);
+            } catch (error) {
+                console.error('Error rendering demographics chart:', error);
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            }
+        }
+
+        // --- AI Insights Functions ---
+        async function generateAIInsights() {
+            const generateBtn = document.getElementById('generate-insights');
+            const insightsDisplay = document.getElementById('ai-insights-display');
+            
+            // Show loading state
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = '<span class="loading"></span> Generating...';
+            
+            try {
+                console.log('🤖 Calling generateAIInsights function...');
+                
+                const { httpsCallable } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js");
+                const generateInsights = httpsCallable(functions, 'generateAIInsights');
+                
+                const result = await generateInsights();
+                console.log('✅ AI insights generated:', result.data);
+                
+                // Display insights
+                displayAIInsights(result.data.insights);
+                showStatus(`✅ Generated ${result.data.count} AI insights!`, 'success');
+                
+            } catch (error) {
+                console.error('❌ Error generating AI insights:', error);
+                showStatus(`❌ Failed to generate insights: ${error.message}`, 'error');
+                
+                // Show error message
+                insightsDisplay.innerHTML = `
+                    <div class="insights-placeholder">
+                        <h4>❌ AI Insights Error</h4>
+                        <p>Failed to generate AI insights. Please try again.</p>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                    </div>
+                `;
+            } finally {
+                // Reset button state
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = '🧠 Generate AI Insights';
+            }
+        }
+
+        function displayAIInsights(insights) {
+            const insightsDisplay = document.getElementById('ai-insights-display');
+            
+            if (!insights || insights.length === 0) {
+                insightsDisplay.innerHTML = `
+                    <div class="insights-placeholder">
+                        <h4>🤖 No Insights Available</h4>
+                        <p>No AI insights were generated. Please try again.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const insightsHTML = insights.map(insight => {
+                const impactClass = insight.impact ? insight.impact.toLowerCase().replace(' ', '-') : 'medium';
+                const typeLabel = insight.type ? insight.type.charAt(0).toUpperCase() + insight.type.slice(1) : 'Insight';
+                
+                return `
+                    <div class="insight-card ${impactClass}-impact">
+                        <div class="insight-header">
+                            <h4 class="insight-title">${insight.title || 'AI Insight'}</h4>
+                            <span class="insight-type">${typeLabel}</span>
+                        </div>
+                        <div class="insight-content">
+                            ${insight.content || 'No content available.'}
+                        </div>
+                        <div class="insight-category">
+                            ${insight.category ? insight.category.replace('_', ' ').toUpperCase() : 'GENERAL'}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            insightsDisplay.innerHTML = `
+                <div class="insights-header">
+                    <h4>🤖 AI-Powered Insights</h4>
+                    <p>Generated ${insights.length} intelligent insights based on your workforce data</p>
+                </div>
+                ${insightsHTML}
+            `;
+        }
+
+        function openAIChat() {
+            const modal = document.getElementById('ai-chat-modal');
+            modal.style.display = 'block';
+            
+            // Add welcome message
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = `
+                <div class="chat-message ai">
+                    👋 Hello! I'm your AI assistant. I can help you analyze your workforce data, answer questions about salaries, performance, demographics, and more.
+                    <br><br>
+                    <strong>Note:</strong> AI Chat requires administrator privileges to access workforce data. If you don't have admin access, please contact your system administrator.
+                    <br><br>
+                    What would you like to know?
+                </div>
+            `;
+        }
+
+        function closeAIChat() {
+            const modal = document.getElementById('ai-chat-modal');
+            modal.style.display = 'none';
+        }
+
+        async function sendAIChatMessage() {
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const sendBtn = document.getElementById('send-chat');
+            
+            const question = chatInput.value.trim();
+            if (!question) return;
+
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chat-message user';
+            userMessage.textContent = question;
+            chatMessages.appendChild(userMessage);
+
+            // Clear input and disable send button
+            chatInput.value = '';
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Sending...';
+
+            // Add loading message
+            const loadingMessage = document.createElement('div');
+            loadingMessage.className = 'chat-message ai';
+            loadingMessage.innerHTML = '<span class="loading"></span> AI is thinking...';
+            chatMessages.appendChild(loadingMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                console.log('🤖 Sending AI chat query:', question);
+                
+                const { httpsCallable } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js");
+                const aiChatQuery = httpsCallable(functions, 'aiChatQuery');
+                
+                const result = await aiChatQuery({ question });
+                console.log('✅ AI chat response:', result.data);
+
+                // Remove loading message
+                loadingMessage.remove();
+
+                // Add AI response
+                const aiMessage = document.createElement('div');
+                aiMessage.className = 'chat-message ai';
+                aiMessage.textContent = result.data.response;
+                chatMessages.appendChild(aiMessage);
+
+            } catch (error) {
+                console.error('❌ Error in AI chat:', error);
+                
+                // Remove loading message
+                loadingMessage.remove();
+
+                // Handle permission errors specifically
+                if (error.message.includes('admin privileges') || error.message.includes('permission')) {
+                    const permissionMessage = document.createElement('div');
+                    permissionMessage.className = 'chat-message ai';
+                    permissionMessage.innerHTML = `
+                        <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 15px; margin: 10px 0;">
+                            <strong>🔒 Admin Access Required</strong><br>
+                            AI Chat requires administrator privileges to access workforce data.<br>
+                            Please contact your system administrator to request access.
+                        </div>
+                    `;
+                    chatMessages.appendChild(permissionMessage);
+                } else {
+                    // Add general error message
+                    const errorMessage = document.createElement('div');
+                    errorMessage.className = 'chat-message ai';
+                    errorMessage.textContent = `Sorry, I encountered an error: ${error.message}`;
+                    chatMessages.appendChild(errorMessage);
+                }
+            } finally {
+                // Re-enable send button
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Send';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        // --- Main Data Loading and Population ---
+        async function loadDashboardAnalytics() {
+            showDashboardStatus('🔄 Loading analytics data...', 'info');
+            
+            try {
+                const getAnalytics = httpsCallable(functions, 'getDashboardAnalytics');
+                const result = await getAnalytics();
+                
+                console.log('🔍 Raw result from getDashboardAnalytics:', result);
+                console.log('🔍 Result data:', result.data);
+                
+                analyticsData = result.data;
+
+                // Check if data exists
+                if (!analyticsData) {
+                    throw new Error('No analytics data returned from function');
+                }
+
+                // Populate cards with null checks
+                document.getElementById('total-headcount').textContent = analyticsData.totalHeadcount || 0;
+                document.getElementById('total-monthly-cost').textContent = formatCurrency(analyticsData.totalMonthlyCost || 0);
+                document.getElementById('total-annual-cost').textContent = formatCurrency(analyticsData.totalAnnualCost || 0);
+                document.getElementById('average-monthly-salary').textContent = formatCurrency(analyticsData.averageMonthlySalary || 0);
+
+                // Render charts with null checks
+                if (analyticsData.departmentCounts) {
+                    renderDepartmentChart(analyticsData.departmentCounts);
+                } else {
+                    console.log('⚠️ departmentCounts is missing:', analyticsData.departmentCounts);
+                }
+                
+                if (analyticsData.averageSalaryByDepartment) {
+                    renderSalaryChart(analyticsData.averageSalaryByDepartment);
+                } else {
+                    console.log('⚠️ averageSalaryByDepartment is missing:', analyticsData.averageSalaryByDepartment);
+                }
+                
+                if (analyticsData.levelCounts) {
+                    renderLevelChart(analyticsData.levelCounts);
+                } else {
+                    console.log('⚠️ levelCounts is missing:', analyticsData.levelCounts);
+                }
+                
+                if (analyticsData.genderCounts) {
+                    renderGenderChart(analyticsData.genderCounts);
+                } else {
+                    console.log('⚠️ genderCounts is missing:', analyticsData.genderCounts);
+                }
+
+                // Render the new Interactive Salary Trends Chart
+                await renderSalaryTrendsChart('department');
+
+                showDashboardStatus(`✅ Loaded analytics for ${analyticsData.totalHeadcount || 0} employees!`, 'success');
+
+            } catch (error) {
+                console.error("Error loading dashboard analytics:", error);
+                showDashboardStatus(`❌ Error loading analytics: ${error.message}`, 'error');
+            }
+        }
+
+        // --- Status Display Functions ---
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        function showDashboardStatus(message, type) {
+            const statusDiv = document.getElementById('dashboard-status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        function showDashboard(user) {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            document.getElementById('user-email').textContent = user.email;
+        }
+
+        // --- Event Listeners ---
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('login-btn');
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Logging in...';
+            
+            try {
+                const { signInWithEmailAndPassword } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                showStatus('✅ Firebase login successful!', 'success');
+                showDashboard(userCredential.user);
+                await loadDashboardAnalytics();
+            } catch (error) {
+                console.error('Firebase login error:', error);
+                showStatus(`❌ Login failed: ${error.message}`, 'error');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = '🔥 Login with Firebase';
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            signOut(auth).catch((error) => console.error('Logout Error:', error));
+        });
+
+        document.getElementById('update-analytics-btn').addEventListener('click', async () => {
+            const updateBtn = document.getElementById('update-analytics-btn');
+            updateBtn.textContent = "🔄 Updating...";
+            updateBtn.disabled = true;
+
+            try {
+                const updateAnalytics = httpsCallable(functions, 'updateAnalyticsSummary');
+                const result = await updateAnalytics();
+                showDashboardStatus(result.data.message, 'success');
+                analyticsData = null; // Clear cache
+                await loadDashboardAnalytics(); // Reload all data and re-render
+            } catch (error) {
+                console.error("Error updating analytics:", error);
+                showDashboardStatus(`❌ Failed to update analytics: ${error.message}`, 'error');
+            } finally {
+                updateBtn.textContent = "🔄 Update Analytics";
+                updateBtn.disabled = false;
+            }
+        });
+
+        // Salary Trends Chart Event Listeners
+        document.getElementById('trend-filter').addEventListener('change', async (e) => {
+            console.log('🔄 Updating salary trends chart...');
+            await renderSalaryTrendsChart(e.target.value);
+        });
+
+        document.getElementById('refresh-trends').addEventListener('click', async () => {
+            const filterType = document.getElementById('trend-filter').value;
+            console.log('🔄 Refreshing salary trends chart...');
+            await renderSalaryTrendsChart(filterType);
+        });
+
+        // Performance Chart Event Listeners
+        document.getElementById('performance-filter').addEventListener('change', async (e) => {
+            console.log('🔄 Updating performance chart...');
+            await renderPerformanceChart(e.target.value);
+        });
+
+        document.getElementById('refresh-performance').addEventListener('click', async () => {
+            const filterType = document.getElementById('performance-filter').value;
+            console.log('🔄 Refreshing performance chart...');
+            await renderPerformanceChart(filterType);
+        });
+
+        // Risk chart event listeners
+        document.getElementById('risk-filter').addEventListener('change', async (e) => {
+            const filterType = e.target.value;
+            console.log('🔄 Risk filter changed to:', filterType);
+            await renderRiskChart(filterType);
+        });
+
+        document.getElementById('refresh-risk').addEventListener('click', async () => {
+            const filterType = document.getElementById('risk-filter').value;
+            console.log('🔄 Refreshing risk chart...');
+            await renderRiskChart(filterType);
+        });
+
+        // Demographics chart event listeners
+        document.getElementById('demographics-filter').addEventListener('change', async (e) => {
+            const filterType = e.target.value;
+            console.log('🔄 Demographics filter changed to:', filterType);
+            await renderDemographicsChart(filterType);
+        });
+
+        document.getElementById('refresh-demographics').addEventListener('click', async () => {
+            const filterType = document.getElementById('demographics-filter').value;
+            console.log('🔄 Refreshing demographics chart...');
+            await renderDemographicsChart(filterType);
+        });
+
+        // AI Insights Event Listeners
+        document.getElementById('generate-insights').addEventListener('click', async () => {
+            console.log('🧠 Generating AI insights...');
+            await generateAIInsights();
+        });
+
+        document.getElementById('ai-chat-btn').addEventListener('click', () => {
+            console.log('💬 Opening AI chat...');
+            openAIChat();
+        });
+
+        // AI Chat Modal Event Listeners
+        document.querySelector('.close').addEventListener('click', closeAIChat);
+        document.getElementById('send-chat').addEventListener('click', sendAIChatMessage);
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendAIChatMessage();
+            }
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('ai-chat-modal');
+            if (e.target === modal) {
+                closeAIChat();
+            }
+        });
+
+        // Sidebar Navigation
+        function switchView(viewId) {
+            // Hide all content sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(`${viewId}-section`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Add active class to clicked nav item
+            const activeNavItem = document.querySelector(`[data-view="${viewId}"]`);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+            
+            console.log(`🔄 Switched to ${viewId} view`);
+            
+            // Render charts when switching views
+            if (viewId === 'salary-trends') {
+                setTimeout(async () => {
+                    await renderSalaryTrendsChart('department');
+                }, 100);
+            } else if (viewId === 'performance') {
+                setTimeout(async () => {
+                    await renderPerformanceChart('heatmap');
+                }, 100);
+            } else if (viewId === 'risk') {
+                setTimeout(async () => {
+                    await renderRiskChart('overview');
+                }, 100);
+            } else if (viewId === 'demographics') {
+                setTimeout(async () => {
+                    await renderDemographicsChart('overview');
+                }, 100);
+            }
+        }
+
+        // Add event listeners to sidebar navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const viewId = e.target.getAttribute('data-view');
+                switchView(viewId);
+            });
+        });
+
+        // Auto-login if already authenticated
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                showDashboard(user);
+                await loadDashboardAnalytics();
+            }
+        });
+    </script>
+</body>
+</html>

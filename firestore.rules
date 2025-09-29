@@ -1,0 +1,47 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Helper function to check if user is active
+    function isActiveUser() {
+      return request.auth != null && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isActive == true;
+    }
+    
+    // Users collection - role-based access
+    match /users/{userId} {
+      // Users can read their own data, admins can read all
+      allow read: if request.auth != null && 
+                     (request.auth.uid == userId || isAdmin());
+      
+      // Only admins can write to user documents
+      allow write: if isAdmin();
+    }
+    
+    // Employees collection - authenticated users can read
+    match /employees/{employeeId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only Cloud Functions can write employee data
+    }
+    
+    // Analytics collection - authenticated users can read
+    match /analytics/{document} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only Cloud Functions can write analytics data
+    }
+    
+    // Deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
