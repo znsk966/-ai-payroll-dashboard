@@ -20,12 +20,12 @@
             <form id="login-form">
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" value="zoki.nedelkovski@gmail.com" required>
+                    <input type="email" id="email" placeholder="Enter your email" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" value="Nedel@123" required>
+                    <input type="password" id="password" placeholder="Enter your password" required>
                 </div>
                 
                 <button type="submit" class="login-btn" id="login-btn">🔥 Login with Firebase</button>
@@ -257,15 +257,8 @@
         import { getFunctions, httpsCallable, connectFunctionsEmulator } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js";
         import { getFirestore, collection, getDocs, connectFirestoreEmulator } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        // Step 2: Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyA5vLyX5Zq_YTBj0coqUN6RTFxGUr_KHWw",
-            authDomain: "ai-payroll-dashboard.firebaseapp.com",
-            projectId: "ai-payroll-dashboard",
-            storageBucket: "ai-payroll-dashboard.firebasestorage.app",
-            messagingSenderId: "446937180242",
-            appId: "1:446937180242:web:7beb8c5ccf1e5a8045178b"
-        };
+        // Import the config from your separate, untracked file
+        import { firebaseConfig } from "./firebase-config.js";
 
         // Step 3: Initialize Firebase services
         const app = initializeApp(firebaseConfig);
@@ -393,6 +386,8 @@
 
         // --- Interactive Salary Trends Chart ---
         async function renderSalaryTrendsChart(filterType = 'department') {
+            console.log('🎯 Starting renderSalaryTrendsChart with filter:', filterType);
+            
             const ctx = document.getElementById('salary-trends-chart').getContext('2d');
             
             // Properly destroy existing chart
@@ -405,6 +400,7 @@
             await new Promise(resolve => setTimeout(resolve, 100));
 
             try {
+                console.log('📊 Querying Firestore for employees...');
                 // Now we can query Firestore directly! 🎉
                 const employeesSnap = await getDocs(collection(db, 'employees'));
                 const employees = [];
@@ -2131,8 +2127,22 @@
             }
         });
 
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            signOut(auth).catch((error) => console.error('Logout Error:', error));
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            try {
+                console.log('🚪 Logging out...');
+                await signOut(auth);
+                console.log('✅ Logout successful');
+                
+                // Clear form fields for security
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
+                
+                // Redirect to login page
+                window.location.href = '/clean-firebase-dashboard.html';
+            } catch (error) {
+                console.error('❌ Logout Error:', error);
+                alert('Logout failed: ' + error.message);
+            }
         });
 
         document.getElementById('update-analytics-btn').addEventListener('click', async () => {
