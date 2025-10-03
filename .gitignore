@@ -129,3 +129,9 @@ functions/.runtimeconfig.json
 
 # Local configuration
 config.local.json
+
+# Firebase Service Account Key (SECURITY - NEVER COMMIT)
+service-account-key.json
+
+# Firebase Configuration (SECURITY - NEVER COMMIT)
+public/firebase-config.js
