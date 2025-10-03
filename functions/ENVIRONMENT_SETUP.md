@@ -2,7 +2,7 @@
 
 ## Environment Variables
 
-This project uses environment variables for sensitive configuration. Since deployment is through GitHub Actions, environment variables are managed through GitHub Secrets.
+This project uses environment variables for sensitive configuration. Environment variables are managed through Firebase Functions configuration.
 
 ### Local Development Setup
 
@@ -19,28 +19,30 @@ This project uses environment variables for sensitive configuration. Since deplo
 
 3. Replace `your_actual_api_key_here` with your actual Google AI API key.
 
-### GitHub Deployment Setup
+### Firebase Deployment Setup
 
-For GitHub Actions deployment, you need to set up GitHub Secrets:
+For Firebase deployment, you need to set up environment variables:
 
-1. Go to your GitHub repository
-2. Navigate to **Settings** → **Secrets and variables** → **Actions**
-3. Click **New repository secret**
-4. Add the following secrets:
-   - **Name**: `GEMINI_KEY`
-   - **Value**: Your actual Google AI API key
+1. Use Firebase CLI to set environment variables:
+   ```bash
+   firebase functions:config:set gemini.key="your_actual_api_key_here"
+   ```
+
+2. Or use Firebase Console:
+   - Go to Firebase Console → Functions → Configuration
+   - Add environment variable `GEMINI_KEY` with your actual Google AI API key
 
 ### Security Notes
 
 - The `.env` file is already added to `.gitignore` and will not be committed to version control
 - Never commit API keys or sensitive information to the repository
-- GitHub Secrets are encrypted and only accessible during deployment
+- Firebase Functions configuration is encrypted and secure
 - Environment variables are automatically passed to Firebase Functions during deployment
 
 ### How It Works
 
 - **Local development**: Uses `.env` file with `dotenv` package
-- **GitHub deployment**: Uses GitHub Secrets passed as environment variables
+- **Firebase deployment**: Uses Firebase Functions configuration
 - **Firebase Functions**: Automatically receives environment variables during deployment
 
 The code uses `process.env.GEMINI_KEY` which works seamlessly in both environments.
